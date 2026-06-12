@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import Category, WorkoutPlan, WorkoutLog
 
-# Register your models here.
+admin.site.register(Category)
+admin.site.register(WorkoutPlan)
+admin.site.register(WorkoutLog)
