@@ -1,0 +1,32 @@
+FitTrack — Gym & Fitness Tracker
+
+Users — profile, contact details, profile pic
+WorkoutPlans — name, description, start/end dates, status, assigned trainer (stakeholders)
+WorkoutLogs — exercise, sets, reps, weight, date
+Messages — sender, receiver, body, archived flag
+Categories — cardio, strength, flexibility, etc.
+
+Core Features mapped to the rubric:
+
+User Management — register, login, update profile, forgot password via email
+Data Storage — log workouts, categorise them, track progress
+Inbox — users message their trainer, archive old messages
+User Roles — member vs trainer role, trainers can create plans and view their clients' logs — this directly hits the auth/permissions criterion
+
+UI Ideas (Bootstrap):
+
+Dashboard with progress stats and a streak counter
+Calendar view of workouts
+Charts showing weight lifted over time (great JavaScript opportunity)
+Collapsible workout log sections
+
+Hosting (Phase 6)
+
+
+Suggested Phase Breakdown
+Phase 1 - Django setup, venv, project structure
+Phase 2 - Design all models, run migrations
+Phase 3 - Auth system, workout CRUD, messaging
+Phase 4 - Bootstrap templates, JS charts, form validation
+Phase 5 - Testing all features + mobile responsiveness
+Phase 6 - Deply to Render
