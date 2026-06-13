@@ -13,7 +13,7 @@ def dashboard(request):
 @login_required
 def plan_list(request):
     plans = WorkoutPlan.objects.filter(assigned_to=request.user)
-    return render(request, 'workouts/plan_detail.html', {'plans': plans})
+    return render(request, 'workouts/plan_list.html', {'plans': plans})
 
 @login_required
 def plan_detail(request, pk):
@@ -21,34 +21,34 @@ def plan_detail(request, pk):
     return render(request, 'workouts/plan_detail.html', {'plan': plan})
 
 @login_required
-def plan_create(requset):
+def plan_create(request):
     if request.method == 'POST':
         form = WorkoutPlanForm(request.POST)
         if form.is_valid():
-            plan = form.save(comit=False)
+            plan = form.save(commit=False)
             plan.created_by = request.user
             plan.assigned_to = request.user
             plan.save()
             messages.success(request, 'Workout plan created!')
             return redirect('plan_list')
-        else:
-            form = WorkoutPlanForm()
-        return render(request, 'workouts/plan_form.html', {'form': form, 'title': 'Create Plan'})
-    
-    @login_required
-    def plan_edit(request, pk):
-        plan = get_object_or_404(WorkoutPlan, pk=pk)
-        if request.method == 'POST':
-            form = WorkoutPlanForm(request.POST, instance=plan)
-            if form.is_valid():
-                form.save()
-                messages.success(request, 'Workout plan updated!')
-                return redirect('plan_list')
-            else:
-                form = WorkoutPlanForm(instance=plan)
-            return render(request, 'workouts/plan_form.html', {'form': form, 'title': 'Edit Plan'})
-        
-    @login_required
+    else:
+        form = WorkoutPlanForm()
+    return render(request, 'workouts/plan_form.html', {'form': form, 'title': 'Create Plan'})
+
+@login_required
+def plan_edit(request, pk):
+    plan = get_object_or_404(WorkoutPlan, pk=pk)
+    if request.method == 'POST':
+        form = WorkoutPlanForm(request.POST, instance=plan)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Workout plan updated!')
+            return redirect('plan_list')
+    else:
+        form = WorkoutPlanForm(instance=plan)
+    return render(request, 'workouts/plan_form.html', {'form': form, 'title': 'Edit Plan'})
+
+@login_required
 def plan_delete(request, pk):
     plan = get_object_or_404(WorkoutPlan, pk=pk)
     if request.method == 'POST':
