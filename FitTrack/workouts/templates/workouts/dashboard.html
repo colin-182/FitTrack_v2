@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h2 class="mb-4">Welcome back, {{ request.user.username }}!</h2>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                <h5 class="mb-0">My Workout Plans</h5>
+            </div>
+            <div class="card-body">
+                {% if plans %}
+                <ul class="list-group list-group-flush">
+                    {% for plan in plans %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a href="{% url 'plan_detail' plan.pk%}">{{ plan.name }}</a>
+                        <span class="badge bg-dark">{{ plan.status }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p class="text-muted">No workout plans yet.</p>
+                {% endif %}
+                <a href="{% url 'plan_create' %}" class="btn btn-dark mt-3">Create Plan</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                <h5 class="mb-0">Recent Workouts</h5>
+            </div>
+            <div class="card-body">
+                {% if logs %}
+                <ul class="list-group list-group-flush">
+                    {% for log in logs %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ log.exercise }}
+                        <span class="text-muted">{{ log.date }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p class="text-muted">No workouts logged yet.</p>
+                {% endif %}
+                <a href="{% url 'log_create' %}" class="btn btn-dark mt-3">Log Workout</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
